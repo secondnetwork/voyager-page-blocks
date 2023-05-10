@@ -1,13 +1,15 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks\Http\Controllers;
+namespace Secondnetwork\VoyagerPageBlocks\Http\Controllers;
 
-use Pvtl\VoyagerPageBlocks\Page;
 use Illuminate\Support\Facades\View;
-use Pvtl\VoyagerPageBlocks\Traits\Blocks;
-
-class PageController extends \Pvtl\VoyagerFrontend\Http\Controllers\PageController
+use Secondnetwork\VoyagerPageBlocks\Page;
+use Secondnetwork\VoyagerPageBlocks\Traits\Blocks;
+use Secondnetwork\VoyagerPageBlocks\Http\Controllers\FrontendPageController;
+//\Secondnetwork\VoyagerFrontend\Http\Controllers\PageController
+class PageController extends FrontendPageController
 {
+
     use Blocks;
 
     /**
@@ -19,6 +21,7 @@ class PageController extends \Pvtl\VoyagerFrontend\Http\Controllers\PageControll
      */
     public function getPage($slug = 'home')
     {
+
         $page = Page::where(['slug' => $slug, 'status' => 'ACTIVE'])->firstOrFail();
         $blocks = $page->blocks()
             ->where('is_hidden', '=', '0')

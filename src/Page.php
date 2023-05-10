@@ -1,16 +1,16 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks;
-
+namespace Secondnetwork\VoyagerPageBlocks;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Pvtl\VoyagerFrontend\Helpers\ClassEvents;
+use Secondnetwork\VoyagerFrontend\Helpers\ClassEvents;
 
-class Page extends \Pvtl\VoyagerFrontend\Page
+class Page extends Model
 {
     // Add relation to page blocks
     public function blocks()
     {
-        return $this->hasMany('Pvtl\VoyagerPageBlocks\PageBlock');
+        return $this->hasMany('Secondnetwork\VoyagerPageBlocks\PageBlock');
     }
 
     /**
@@ -43,12 +43,12 @@ class Page extends \Pvtl\VoyagerFrontend\Page
         });
 
         $array['page_blocks'] = implode(' ', Arr::flatten($pageBlocks));
-        
+
         if (isset($array['translations']) && is_array($array['translations'])) {
             //Unset translations
             unset($array['translations']);
         }
-        
+
         return $array;
     }
 }

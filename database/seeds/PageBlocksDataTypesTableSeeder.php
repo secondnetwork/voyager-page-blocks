@@ -16,8 +16,8 @@ class PageBlocksDataTypesTableSeeder extends Seeder
             'display_name_singular' => 'Page Block',
             'display_name_plural' => 'Page Blocks',
             'icon' => 'voyager-file-text',
-            'model_name' => 'Pvtl\VoyagerPageBlocks\PageBlock',
-            'controller' => '\Pvtl\VoyagerPageBlocks\Http\Controllers\PageBlockController',
+            'model_name' => 'Secondnetwork\VoyagerPageBlocks\PageBlock',
+            'controller' => '\Secondnetwork\VoyagerPageBlocks\Http\Controllers\PageBlockController',
             'generate_permissions' => '1',
         ])->save();
 
@@ -28,8 +28,8 @@ class PageBlocksDataTypesTableSeeder extends Seeder
                 'display_name_singular' => 'Page',
                 'display_name_plural'   => 'Pages',
                 'icon'                  => 'voyager-file-text',
-                'model_name'            => 'Pvtl\\VoyagerPageBlocks\\Page',
-                'controller'            => '\\Pvtl\\VoyagerPageBlocks\\Http\\Controllers\\PageController',
+                'model_name'            => 'TCG\Voyager\Models\Page',
+                'controller'            => '\\Secondnetwork\\VoyagerPageBlocks\\Http\\Controllers\\PageController',
                 'generate_permissions'  => 1,
                 'description'           => '',
             ])->save();
@@ -37,8 +37,8 @@ class PageBlocksDataTypesTableSeeder extends Seeder
 
         if ($dataType->exists) {
             $dataType->update([
-                'model_name' => 'Pvtl\\VoyagerPageBlocks\\Page',
-                'controller' => '\\Pvtl\\VoyagerPageBlocks\\Http\\Controllers\\PageController',
+                'model_name' => 'TCG\Voyager\Models\Page',
+                'controller' => '\\Secondnetwork\\VoyagerPageBlocks\\Http\\Controllers\\PageController',
             ]);
         }
 

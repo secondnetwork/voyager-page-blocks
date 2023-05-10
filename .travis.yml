@@ -30,13 +30,13 @@ before_script:
   - mysql -u root -e "GRANT ALL ON homestead.* TO 'homestead'@'localhost';"
 
   ## Install Laravel
-  - composer create-project --prefer-dist laravel/laravel pvtl-laravel "5.5.*"
-  - cd pvtl-laravel
+  - composer create-project --prefer-dist laravel/laravel Secondnetwork-laravel "5.5.*"
+  - cd Secondnetwork-laravel
 
   ## Pull in our vendor files (latest)
   - composer require tcg/voyager
-  - composer require pvtl/voyager-frontend
-  - composer require pvtl/voyager-page-blocks
+  - composer require Secondnetwork/voyager-frontend
+  - composer require Secondnetwork/voyager-page-blocks
 
   ## Setup Voyager and our modules
   - php artisan voyager:install --with-dummy
@@ -44,7 +44,7 @@ before_script:
   - php artisan voyager-page-blocks:install
 
   ## cd into our vendor folder and execute PHPUnit from here
-  - cd $TRAVIS_BUILD_DIR/pvtl-laravel/vendor/pvtl/voyager-page-blocks
-  - $TRAVIS_BUILD_DIR/pvtl-laravel/vendor/bin/phpunit
+  - cd $TRAVIS_BUILD_DIR/Secondnetwork-laravel/vendor/Secondnetwork/voyager-page-blocks
+  - $TRAVIS_BUILD_DIR/Secondnetwork-laravel/vendor/bin/phpunit
 script:
   - phpunit

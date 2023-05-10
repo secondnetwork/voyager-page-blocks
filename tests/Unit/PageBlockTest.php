@@ -1,9 +1,9 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks\Tests\Unit;
+namespace Secondnetwork\VoyagerPageBlocks\Tests\Unit;
 
 use Tests\TestCase;
-use Pvtl\VoyagerPageBlocks\PageBlock;
+use Secondnetwork\VoyagerPageBlocks\PageBlock;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class PageBlockTest extends TestCase

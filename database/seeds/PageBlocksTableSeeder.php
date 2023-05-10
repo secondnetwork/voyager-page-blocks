@@ -1,7 +1,8 @@
 <?php
 
-use Pvtl\VoyagerPages\Page;
-use Pvtl\VoyagerPageBlocks\PageBlock;
+use Secondnetwork\VoyagerPagesBlocks\Page;
+
+use Secondnetwork\VoyagerPageBlocks\PageBlock;
 use TCG\Voyager\Models\Role;
 use TCG\Voyager\Models\DataType;
 use TCG\Voyager\Models\Permission;
@@ -128,7 +129,7 @@ class PageBlocksTableSeeder extends Seeder
                 $block->fill([
                     'path' => 'content_one_column',
                     'data' => [
-                        'html_content_1' => '<p>You can install the <a href="https://github.com/pvtl/voyager-forms">Voyager Forms</a> module and add the appropriate tag here.</p>',
+                        'html_content_1' => '<p>You can install the <a href="https://github.com/Secondnetwork/voyager-forms">Voyager Forms</a> module and add the appropriate tag here.</p>',
                         'spaces' => '1',
                         'animate' => 'on',
                     ],

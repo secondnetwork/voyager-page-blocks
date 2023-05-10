@@ -37,6 +37,7 @@
                                     /* For 'multiple images' field - pass through the ID to identify the specific field */
                                     $dataTypeContent->id = $row->field;
                                 @endphp
+
                                 {!! app('voyager')->formField($row, 'page_blocks', $dataTypeContent) !!}
                             </div> <!-- /.form-group -->
                         </div> <!-- /.col -->

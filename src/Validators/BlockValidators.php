@@ -1,6 +1,6 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks\Validators;
+namespace Secondnetwork\VoyagerPageBlocks\Validators;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

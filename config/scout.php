@@ -11,5 +11,5 @@
 |
 */
 return [
-    '\Pvtl\VoyagerPageBlocks\Page',
+    '\Secondnetwork\VoyagerPageBlocks\Page',
 ];

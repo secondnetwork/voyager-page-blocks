@@ -1,6 +1,6 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks\Traits;
+namespace Secondnetwork\VoyagerPageBlocks\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
-use Pvtl\VoyagerFrontend\Helpers\ClassEvents;
-use Pvtl\VoyagerFrontend\Helpers\BladeCompiler;
+use Secondnetwork\VoyagerFrontend\Helpers\ClassEvents;
+use Secondnetwork\VoyagerFrontend\Helpers\BladeCompiler;
 
 trait Blocks
 {
@@ -43,6 +43,7 @@ trait Blocks
             return Cache::remember($cacheKey, $ttl, function () use ($block) {
                 return $block;
             });
+
         }, $blocks->toArray());
     }
 

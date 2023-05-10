@@ -1,21 +1,14 @@
-**This repository is no longer actively maintained**
 
-# Voyager Page Blocks
+# Voyager Page Blocks for Laravel 9
 
-![Voyager Frontend Screenshot](/readme-intro.jpg)
-
-This [Laravel](https://laravel.com/)/[Voyager Frontend](https://github.com/pvtl/voyager-frontend) module is designed to give developers the ability to easily design page blocks, for Voyager admin users to build stunning frontend pages.
-
-Built by [Pivotal Agency](https://pivotal.agency/).
+That is only page-blocks 
 
 ---
 
 ## Prerequisites
 
-- Composer Installed
-- [Install Laravel](https://laravel.com/docs/installation)
-- [Install Voyager](https://github.com/the-control-group/voyager)
-- [Install Voyager Frontend](https://github.com/pvtl/voyager-frontend)
+- [Install Laravel 9](https://laravel.com/docs/installation)
+- [Install Voyager 1.5](https://github.com/the-control-group/voyager) 
 
 ---
 
@@ -23,7 +16,7 @@ Built by [Pivotal Agency](https://pivotal.agency/).
 
 ```bash
 # 1. Require this Package in your fresh Laravel/Voyager project
-composer require pvtl/voyager-page-blocks
+composer require secondnetwork/voyager-page-blocks
 
 # 2. Run the Installer
 php artisan voyager-page-blocks:install
@@ -118,12 +111,12 @@ Next, jump into the Voyager Admin > Pages and click 'Content' next to a page. Yo
 
 You may also wish to include custom logic and functionality into your page blocks. This can be done with a __Developer Controller__ Block - simply specify your controller namespace'd path and the method you wish to call, which should return a [view](https://laravel.com/docs/views) and you'll be on your way.
 
-For example, the [Voyager Frontend](https://github.com/pvtl/voyager-frontend) package comes with a _Recent Posts_ method/view that you can play with and review.
+For example, the [Voyager Frontend](https://github.com/Secondnetwork/voyager-frontend) package comes with a _Recent Posts_ method/view that you can play with and review.
 
 From the _Add Block_ section of the page in the admin, add the block type of _Developer Controller_, then input the following into the path field:
 
 ```
-Pvtl\VoyagerFrontend\Http\Controllers\PostController::recentBlogPosts(2)
+Secondnetwork\VoyagerFrontend\Http\Controllers\PostController::recentBlogPosts(2)
 ```
 
 This will output `2` blog posts on the frontend. You could change the first paramter of the method to 6, to output 6 blog posts. Simples.

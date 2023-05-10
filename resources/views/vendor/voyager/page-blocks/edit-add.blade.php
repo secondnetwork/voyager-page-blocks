@@ -132,12 +132,12 @@
 
                 <div class="dd">
                     <ol class="dd-list">
+
                         @foreach($pageBlocks as $block)
                             @php
                                 $template = $block->template();
-                                $dataTypeContent = new \Pvtl\VoyagerPageBlocks\MockedModel($block->data);
+                                $dataTypeContent = new \Secondnetwork\VoyagerPageBlocks\MockedModel($block->data);
                             @endphp
-
                             @if ($block->type === 'template')
                                 @include('voyager::page-blocks.partials.template')
                             @else

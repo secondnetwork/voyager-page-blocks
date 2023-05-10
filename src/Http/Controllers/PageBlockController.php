@@ -1,16 +1,16 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks\Http\Controllers;
+namespace Secondnetwork\VoyagerPageBlocks\Http\Controllers;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
-use Pvtl\VoyagerPageBlocks\Page;
-use Pvtl\VoyagerPageBlocks\PageBlock;
-use Pvtl\VoyagerPageBlocks\Traits\Blocks;
-use Pvtl\VoyagerPageBlocks\Validators\BlockValidators;
 use TCG\Voyager\Facades\Voyager;
+use Illuminate\Support\Facades\URL;
+use Secondnetwork\VoyagerPageBlocks\Page;
+use Secondnetwork\VoyagerPageBlocks\PageBlock;
+use Secondnetwork\VoyagerPageBlocks\Traits\Blocks;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
+use Secondnetwork\VoyagerPageBlocks\Validators\BlockValidators;
 
 class PageBlockController extends VoyagerBaseController
 {
@@ -18,7 +18,9 @@ class PageBlockController extends VoyagerBaseController
 
     public function index(Request $request)
     {
+
         return redirect('/admin/pages');
+
     }
 
     /**
@@ -174,7 +176,7 @@ class PageBlockController extends VoyagerBaseController
 
         if ($request->input('type') === 'include') {
             $type = $request->input('type');
-            $path = '\Pvtl\VoyagerFrontend\Http\Controllers\PostController::recentBlogPosts()';
+            $path = '\Secondnetwork\VoyagerFrontend\Http\Controllers\PostController::recentBlogPosts()';
         } else {
             list($type, $path) = explode('|', $request->input('type'));
         }

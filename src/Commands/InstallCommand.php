@@ -1,9 +1,9 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks\Commands;
+namespace Secondnetwork\VoyagerPageBlocks\Commands;
 
 use TCG\Voyager\Traits\Seedable;
-use Pvtl\VoyagerPageBlocks\Providers\PageBlocksServiceProvider;
+use Secondnetwork\VoyagerPageBlocks\Providers\PageBlocksServiceProvider;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;

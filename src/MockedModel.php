@@ -1,6 +1,6 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks;
+namespace Secondnetwork\VoyagerPageBlocks;
 
 
 class MockedModel

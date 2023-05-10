@@ -1,8 +1,8 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks\Providers;
+namespace Secondnetwork\VoyagerPageBlocks\Providers;
 
-use Pvtl\VoyagerPageBlocks\Commands;
+use Secondnetwork\VoyagerPageBlocks\Commands;
 use Illuminate\Support\ServiceProvider;
 
 class PageBlocksServiceProvider extends ServiceProvider
@@ -22,8 +22,9 @@ class PageBlocksServiceProvider extends ServiceProvider
         $this->strapRoutes();
         $this->strapPublishers();
         $this->strapViews();
-        $this->strapMigrations();
+        // $this->strapMigrations();
         $this->strapCommands();
+        $this->strapHelpers();
     }
 
     /**
@@ -68,6 +69,14 @@ class PageBlocksServiceProvider extends ServiceProvider
         // Load views
         $this->loadViewsFrom(self::PACKAGE_DIR . 'resources/views', 'voyager-page-blocks');
         $this->loadViewsFrom(self::PACKAGE_DIR . 'resources/views/vendor/voyager', 'voyager');
+    }
+
+        /**
+     * Load helpers.
+     */
+    protected function strapHelpers()
+    {
+        require_once self::PACKAGE_DIR . '/src/Helpers/ImageResize.php';
     }
 
     /**

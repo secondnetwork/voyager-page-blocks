@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Pvtl\VoyagerPageBlocks\PageBlock::class, function (Faker $faker) {
+$factory->define(Secondnetwork\VoyagerPageBlocks\PageBlock::class, function (Faker $faker) {
     return [
         'page_id' => 1,
         'type' => 'template',

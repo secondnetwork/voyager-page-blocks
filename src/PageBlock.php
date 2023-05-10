@@ -1,6 +1,6 @@
 <?php
 
-namespace Pvtl\VoyagerPageBlocks;
+namespace Secondnetwork\VoyagerPageBlocks;
 
 use TCG\Voyager\Models\DataRow;
 use Illuminate\Support\Facades\Cache;
@@ -69,6 +69,8 @@ class PageBlock extends Model
     // Fetch config for block template
     public function template()
     {
+
+
         if ($this->type === 'include') {
             return (object)[
                 'template' => $this->type,
@@ -80,14 +82,14 @@ class PageBlock extends Model
 
         $templateConfig['fields'] = collect($templateConfig['fields'])
             ->map(function ($row) {
-                if ($row['type'] === 'break') {
-                    return (object)$row;
-                }
-
+                // if ($row['type'] === 'break') {
+                //     return (object)$row;
+                // }
+                // return (object)$row;
                 $dataRow = new DataRow();
                 $dataRow->field = $row['field'];
                 $dataRow->display_name = $row['display_name'];
-                $dataRow->type = $row['type'];
+                $dataRow->type = $row['type'] ?? 'text';
                 $dataRow->required = $row['required'] ?? 0;
                 $dataRow->details = $row['details'] ?? null;
                 $dataRow->placeholder = $row['placeholder'] ?? 0;
