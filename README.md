@@ -1,31 +1,27 @@
 
 # Voyager Page Blocks for Laravel 9
 
-That is only page-blocks 
-
----
+This repository is only Voyager Page Blocks not the Voyager Frontend Package
 
 ## Prerequisites
 
 - [Install Laravel 9](https://laravel.com/docs/installation)
 - [Install Voyager 1.5](https://github.com/the-control-group/voyager) 
-
----
+- [Install Voyager Themes](https://github.com/thedevdojo/themes)
 
 ## Installation
-
+**1. Require this Package in your fresh Laravel/Voyager project**
 ```bash
-# 1. Require this Package in your fresh Laravel/Voyager project
 composer require secondnetwork/voyager-page-blocks
-
-# 2. Run the Installer
+```
+**2. Run the Installer**
+```bash
 php artisan voyager-page-blocks:install
-
-# 3. (Optional) Seed the database with example page blocks.
+```
+**3. (Optional) Seed the database with example page blocks.**
+```bash
 php artisan voyager-page-blocks:seed
 ```
-
----
 
 ## Creating & Modifying Blocks
 
@@ -69,7 +65,7 @@ When you're ready to start structuring the display of your block, you'll need to
 
 Let's say we want to create a new block with 1 WYSIWYG editor, called 'Company Overview'.
 
-__Step 1. Define the new block__
+**Step 1. Define the new block**
 
 In `/config/page-blocks.php`, we'll add:
 
@@ -89,37 +85,62 @@ $blocks['company_overview'] = [
 ];
 ```
 
-__Step 2. Build the HTML__
+**Step 2. Build the Controller and Blade View**
 
-In `/resources/views/vendor/voyager-page-blocks/blocks`, we'll create a new file called `company_overview.blade.php` with:
+**PagesController**
 
 ```php
-<div class="page-block">
-    <div class="grid-container column text-center">
-        {!! $blockData->content !!}
-    </div>
+class PagesController extends Controller
+{
+    protected $theme = '';
+
+    public function index()
+    {
+        $page = Page::where('slug', 'startseite');
+        $page = $page->firstOrFail();
+        $block = DB::table('page_blocks')
+            ->where('page_id', '=', $page->id)
+            ->where('is_hidden', '=', '0')
+            ->orderBy('order', 'asc')
+            ->get();
+        return view('theme::pages.default', compact('page', 'block', 'posts'));
+    }
+```
+**Blade View Template**
+```php
+@if (!empty($block))
+@foreach($block as $blockTemp)
+    @if (!empty($blockTemp->type))
+        @php
+        $template = $blockTemp->path;
+        $blockData = json_decode($blockTemp->data);
+        @endphp
+        
+        @include('theme::blocks.'.$template)
+        
+    @else
+        <div class="page-block">
+            <div class="callout alert">
+                <div class="grid-container column text-center">
+                    <h2><< !! Warning: Missing Block !! >></h2>
+                </div>
+            </div>
+        </div>
+    @endif
+@endforeach
+@else
+<h1>
+  {{ $page->title }}
+</h1>
+<div class="page-content">
+  {!! $page->body !!}
 </div>
+@endif
 ```
 
-__Step 3. Add the block to a page__
+**Step 3. Add the block to a page**
 
 Next, jump into the Voyager Admin > Pages and click 'Content' next to a page. You'll now be able to select `Company Overview` from the 'Add Block' section. Add the block to the page, drag/drop it into place, edit the text etc.
-
----
-
-## Developer Controller Blocks
-
-You may also wish to include custom logic and functionality into your page blocks. This can be done with a __Developer Controller__ Block - simply specify your controller namespace'd path and the method you wish to call, which should return a [view](https://laravel.com/docs/views) and you'll be on your way.
-
-For example, the [Voyager Frontend](https://github.com/Secondnetwork/voyager-frontend) package comes with a _Recent Posts_ method/view that you can play with and review.
-
-From the _Add Block_ section of the page in the admin, add the block type of _Developer Controller_, then input the following into the path field:
-
-```
-Secondnetwork\VoyagerFrontend\Http\Controllers\PostController::recentBlogPosts(2)
-```
-
-This will output `2` blog posts on the frontend. You could change the first paramter of the method to 6, to output 6 blog posts. Simples.
 
 ---
 
