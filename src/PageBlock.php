@@ -82,14 +82,11 @@ class PageBlock extends Model
 
         $templateConfig['fields'] = collect($templateConfig['fields'])
             ->map(function ($row) {
-                // if ($row['type'] === 'break') {
-                //     return (object)$row;
-                // }
-                // return (object)$row;
+                
                 $dataRow = new DataRow();
-                $dataRow->field = $row['field'];
-                $dataRow->display_name = $row['display_name'];
-                $dataRow->type = $row['type'] ?? 'text';
+                $dataRow->field = $row['field'] ?? '';
+                $dataRow->display_name = $row['display_name'] ?? '';
+                $dataRow->type = $row['type'] ?? 'hidden';
                 $dataRow->required = $row['required'] ?? 0;
                 $dataRow->details = $row['details'] ?? null;
                 $dataRow->placeholder = $row['placeholder'] ?? 0;
