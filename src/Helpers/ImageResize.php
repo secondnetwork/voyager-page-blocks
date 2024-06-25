@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
+
 function imageUrl($imagePath = '', $width = null, $height = null, $config = array())
 {
+
+
     // Available configs
     $quality = isset($config['quality']) ? $config['quality'] : 100;
     $crop = isset($config['crop']) ? !!($config['crop']) : true;
@@ -22,58 +25,71 @@ function imageUrl($imagePath = '', $width = null, $height = null, $config = arra
     $urlPrefix = $hostname . '/storage/';
     $diskPath = str_replace($urlPrefix, '', $cachedUrl);
 
-    if (null === $cachedUrl || !Storage::exists($diskPath)) {
+    $imageMimeTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+    ];
 
-        // Don't continue when original file doesn't exist
-        if (!($storage->exists($imagePath))) {
-            return null;
+    if (in_array($storage->mimeType($imagePath), $imageMimeTypes)) {
+
+        if (null === $cachedUrl || !Storage::exists($diskPath)) {
+
+            // Don't continue when original file doesn't exist
+            if (!($storage->exists($imagePath))) {
+                return null;
+            }
+
+            // Return original image if height and width are 0
+            if ((int)$width === 0 && (int)$height === 0) {
+                return $urlPrefix . $imagePath;
+            }
+
+            // Absolute path to full size image
+            $storagePath = storage_path() . '/app/public/';
+
+            // Create the new image path
+            $splitAt = strrpos($imagePath, '/');
+            $imageDir = substr($imagePath, 0, $splitAt);
+            $imageName = substr($imagePath, $splitAt + 1);
+            $resizedImagePath = "resized/" . $imageDir . "-$width" . "x$height/" . $imageName;
+
+            // No need to continue if image already exists
+            if ($storage->exists($resizedImagePath)) {
+                return $urlPrefix . $resizedImagePath;
+            }
+
+
+            // Create the new image
+            $resizedImage = Image::make($storagePath . $imagePath);
+
+            // Crop/Resize always needs height AND width
+            $width = empty($width) ? 1600 : $width;
+            $height = empty($height) ? 1600 : $height;
+
+            // Shall we crop or resize?
+            if ($crop) {
+                $resizedImage->fit((int)$width, (int)$height, function ($constraint) {
+                    $constraint->upsize();
+                });
+            } else {
+                $resizedImage->resize((int)$width, (int)$height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            }
+
+            $resizedImage->encode('', (int)$quality);
+
+            // And put it where it needs to go
+            $storage->put($resizedImagePath, (string)$resizedImage, 'public');
+
+            $cachedUrl = $urlPrefix . $resizedImagePath;
         }
 
-        // Return original image if height and width are 0
-        if ((int)$width === 0 && (int)$height === 0) {
-            return $urlPrefix . $imagePath;
-        }
-
-        // Absolute path to full size image
-        $storagePath = storage_path() . '/app/public/';
-
-        // Create the new image path
-        $splitAt = strrpos($imagePath, '/');
-        $imageDir = substr($imagePath, 0, $splitAt);
-        $imageName = substr($imagePath, $splitAt + 1);
-        $resizedImagePath = "resized/" . $imageDir . "-$width" . "x$height/" . $imageName;
-
-        // No need to continue if image already exists
-        if ($storage->exists($resizedImagePath)) {
-            return $urlPrefix . $resizedImagePath;
-        }
-
-        // Create the new image
-        $resizedImage = Image::make($storagePath . $imagePath);
-
-        // Crop/Resize always needs height AND width
-        $width = empty($width) ? 1600 : $width;
-        $height = empty($height) ? 1600 : $height;
-
-        // Shall we crop or resize?
-        if ($crop) {
-            $resizedImage->fit((int)$width, (int)$height, function ($constraint) {
-                $constraint->upsize();
-            });
-        } else {
-            $resizedImage->resize((int)$width, (int)$height, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-        }
-
-        $resizedImage->encode('', (int)$quality);
-
-        // And put it where it needs to go
-        $storage->put($resizedImagePath, (string)$resizedImage, 'public');
-
-        $cachedUrl = $urlPrefix . $resizedImagePath;
+        return $cachedUrl;
+    } else {
+        return $imagePath;
     }
-
-    return $cachedUrl;
 }
