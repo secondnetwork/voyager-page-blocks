@@ -29,7 +29,6 @@ function imageUrl($imagePath = '', $width = null, $height = null, $config = arra
         'image/jpeg',
         'image/png',
         'image/webp',
-        'image/gif',
     ];
 
     if (in_array($storage->mimeType($imagePath), $imageMimeTypes)) {
