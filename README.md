@@ -1,5 +1,5 @@
 
-# Voyager Page Blocks for Laravel 10
+# Voyager Page Blocks for Laravel 11
 
 This repository is only Voyager Page Blocks not the Voyager Frontend Package
 
